@@ -1,8 +1,5 @@
-import ProdutosScreen from "./src/screens/ProdutosScreen";
+import AppNavigator from "./src/navigation/AppNavigator";
 
 export default function App() {
-  return (
-      <ProdutosScreen />
-  );
+  return <AppNavigator />;
 }
-

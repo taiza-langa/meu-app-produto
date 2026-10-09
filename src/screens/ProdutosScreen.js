@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { getProdutos } from "../services/api";
+import ProdutoCard from "../components/ProdutoCard";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProdutosScreen() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState("");
+  const navigation = useNavigation();
 
   useEffect(() => {
     carregarProdutos();
@@ -42,17 +45,16 @@ export default function ProdutosScreen() {
 
   return (
     <View>
-      <Text>Produtos</Text>
-
       <FlatList
         data={produtos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.descricao}</Text>
-            <Text>R$ {item.preco.toFixed(2)}</Text>
-            <Text>Estoque: {item.estoque}</Text>
-          </View>
+          <ProdutoCard
+            produto={item}
+            onPress={() =>
+              navigation.navigate("DetalhesProduto", { id: item.id })
+            }
+          />
         )}
       />
     </View>
